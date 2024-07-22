@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cypress Actions Test</title>
+    <style>
+        .focus {
+            outline: 2px solid orange;
+        }
+        .error {
+            border: 2px solid red;
+        }
+        #action-canvas {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            position: relative;
+        }
+        #action-canvas .label {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+        #scroll-horizontal, #scroll-vertical, #scroll-both {
+            width: 200px;
+            height: 200px;
+            overflow: auto;
+            border: 1px solid black;
+        }
+        #scroll-horizontal { white-space: nowrap; }
+        .scrollable-content {
+            width: 800px;
+            height: 800px;
+            background: linear-gradient(to bottom, #fff, #000);
+        }
+        #scroll-both {
+            width: 400px;
+            height: 400px;
+        }
+        #scroll-both .scrollable-content {
+            width: 800px;
+            height: 800px;
+        }
+        .action-checkboxes, .action-radios, .action-multiple-checkboxes, .action-check {
+            margin-bottom: 1rem;
+        }
+        .action-checkboxes input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        .action-radios input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        .action-select {
+            width: 200px;
+        }
+        .action-select-multiple {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cypress Actions Test Page</h1>
+
+        <div>
+            <input class="action-email" type="email" placeholder="Enter email">
+            <input class="action-disabled" type="text" disabled>
+        </div>
+
+        <div>
+            <button class="action-focus">Focus Me</button>
+            <input class="action-focus" type="text">
+        </div>
+
+        <div>
+            <input class="action-blur" type="text">
+        </div>
+
+        <div>
+            <input class="action-clear" type="text" value="Text to clear">
+        </div>
+
+        <div>
+            <form class="action-form">
+                <input type="text">
+                <button type="submit">Submit</button>
+            </form>
+            <div> Your form has been submitted!</div>
+        </div>
+
+        <div>
+            <button class="action-btn">Click Me</button>
+        </div>
+
+        <div id="action-canvas">
+            <div class="label"></div>
+        </div>
+
+        <div class="action-div">
+            Double Click Me
+        </div>
+        <input class="action-input-hidden" type="text" style="display: none;">
+
+        <div class="rightclick-action-div">
+            Right Click Me
+        </div>
+        <input class="rightclick-action-input-hidden" type="text" style="display: none;">
+
+        <div class="action-checkboxes">
+            <input type="checkbox" value="checkbox1"> Checkbox 1<br>
+            <input type="checkbox" value="checkbox2"> Checkbox 2<br>
+            <input type="checkbox" value="checkbox3" disabled> Disabled Checkbox<br>
+        </div>
+
+        <div class="action-radios">
+            <input type="radio" name="radio" value="radio1"> Radio 1<br>
+            <input type="radio" name="radio" value="radio2"> Radio 2<br>
+            <input type="radio" name="radio" value="radio3" disabled> Disabled Radio<br>
+        </div>
+
+        <div class="action-multiple-checkboxes">
+            <input type="checkbox" value="checkbox1"> Checkbox 1<br>
+            <input type="checkbox" value="checkbox2"> Checkbox 2<br>
+        </div>
+
+        <div class="action-check">
+            <input type="checkbox" value="checkbox1"> Checkbox 1<br>
+            <input type="checkbox" value="checkbox2"> Checkbox 2<br>
+        </div>
+
+        <select class="action-select">
+            <option value="--Select a fruit--">--Select a fruit--</option>
+            <option value="fr-apples">Apples</option>
+            <option value="fr-oranges">Oranges</option>
+            <option value="fr-bananas">Bananas</option>
+        </select>
+
+        <select class="action-select-multiple" multiple>
+            <option value="fr-apples">Apples</option>
+            <option value="fr-oranges">Oranges</option>
+            <option value="fr-bananas">Bananas</option>
+        </select>
+
+        <div id="scroll-horizontal">
+            <div class="scrollable-content"></div>
+        </div>
+
+        <div id="scroll-vertical">
+            <div class="scrollable-content"></div>
+        </div>
+
+        <div id="scroll-both">
+            <div class="scrollable-content"></div>
+        </div>
+
+        <input class="trigger-input-range" type="range" min="0" max="100">
+    </div>
+</body>
+</html>
