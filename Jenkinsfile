@@ -17,10 +17,30 @@ pipeline {
             }
         }
 
-        stage('Build & Push Docker Image') {
+        stage('Build Docker Image') {
             steps {
-                // Exécution du playbook Ansible pour construire et pousser l'image Docker
-                sh 'ansible-playbook ansible-playbook.yml'
+                // Construction de l'image Docker
+                sh 'docker build -t houssem1988/automatisation-cypress .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                // Pousser l'image Docker sur Docker Hub
+                sh 'docker push houssem1988/automatisation-cypress'
+            }
+        }
+
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    // Arrêter et supprimer le conteneur existant s'il existe
+                    sh 'docker stop web-container || true'
+                    sh 'docker rm web-container || true'
+                    
+                    // Exécuter le nouveau conteneur
+                    sh 'docker run -d --name web-container -p 5001:80 houssem1988/automatisation-cypress'
+                }
             }
         }
     }
