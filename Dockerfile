@@ -23,7 +23,7 @@ RUN npm run build -- --output-path=./dist/automatisation-cypress
 FROM nginx:latest
 
 # Copy the build output to Nginx HTML directory
-COPY --from=build /usr/local/app/dist/automatisation-cypress /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/out/automatisation-cypress /usr/share/nginx/html
 
 # Copy custom Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
