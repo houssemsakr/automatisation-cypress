@@ -16,14 +16,14 @@ RUN npm install -g @angular/cli
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the application for production with a custom output path
-RUN npm run build -- --output-path=./dist/automatisation-cypress
+# Build the application for production
+RUN npm run build -- --output-path=./dist/out
 
 # Stage 2: Serve the application with Nginx server
 FROM nginx:latest
 
 # Copy the build output to Nginx HTML directory
-COPY --from=build /usr/local/app/dist/out/automatisation-cypress /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/out /usr/share/nginx/html
 
 # Copy custom Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
