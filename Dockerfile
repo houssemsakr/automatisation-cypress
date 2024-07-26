@@ -1,32 +1,32 @@
-# Stage 1: Compile and Build Angular Codebase
+# Stage 1: Compile and Build angular codebase
+
+# Use official node image as the base image
 FROM node:latest as build
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /usr/local/app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Add the source code to app
+COPY ./ /usr/local/app/
 
-# Install dependencies
+# Install all the dependencies
 RUN npm install
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli
-
-# Copy the rest of the application code to the working directory
-COPY . .
-
-# Build the application for production
+# Generate the build of the application
 RUN npm run build -- --output-path=./dist/out
 
-# Stage 2: Serve the application with Nginx server
+
+# Stage 2: Serve app with nginx server
+
+# Use official nginx image as the base image
 FROM nginx:latest
 
-# Copy the build output to Nginx HTML directory
+# Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/out /usr/share/nginx/html
 
-# Copy custom Nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# single page
+# Copy the respective nginx configuration files
+COPY nginx_config/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80 to the outside world
+# Expose port 80
 EXPOSE 80
